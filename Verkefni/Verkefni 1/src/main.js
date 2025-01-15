@@ -1,24 +1,54 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import fs from 'fs/promises';
+import path from 'path';
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+const dataFolder = './Verkefni/Verkefni 1/data/';
 
-setupCounter(document.querySelector('#counter'))
+async function readIndexFile() {
+  const filePath = path.join(dataFolder, 'index.json');
+
+  try{
+    const data = await fs.readFile(filePath, 'utf-8');
+    const index = JSON.parse(data);
+
+    console.log('JSON lesid', index);
+    return index;
+  }
+  catch (error) {
+    console.error('failed to read $(filePath):', error.message);
+    return[];
+  }
+}
+
+readIndexFile();
+
+async function readQuestionFile(fileName) {
+  const filePath = path.join(dataFolder, fileName);
+
+  try {
+    const data = await fs.readFile(filePath, 'utf8');
+    const questions = JSON.parse(data);
+
+    console.log(`Spurningar i ${fileName} lesnar:`, questions);
+    return questions;
+  } catch (error) {
+    console.error(`Failed to read ${filePath}:`, error.message);
+    return null;
+  }
+}
+
+async function readAllData() {
+  const index = await readIndexFile();
+
+  for (const item of index) {
+    if (item.file) {
+      const questions = await readQuestionFile(item.file);
+      if (questions) {
+        console.log(`Processed data for: ${item.title}`);
+      }
+    } else {
+      console.warn(`Missing 'file' property in index entry:`, item);
+    }
+  }
+}
+
+readAllData();
