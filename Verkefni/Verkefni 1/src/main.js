@@ -1,54 +1,94 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const dataFolder = './Verkefni/Verkefni 1/data/';
+
+/** lesa index.json */
+
+const dataFolder = './data/';
+
+async function validateFiles(entries) {
+  const validEntries = [];
+  const invalidEntries = [];
+
+  for (const entry of entries) {
+    const filePath = path.join(dataFolder, entry.file);
+
+    try {
+      const fileData = await fs.readFile(filePath, 'utf-8');
+      const parsedData = JSON.parse(fileData);
+
+      if (parsedData.questions) {
+        validEntries.push(entry);
+      } else {
+        throw new Error('File content is not valid for questions');
+      }
+    } catch (error) {
+      console.log(`Invalid or missing file for "${entry.file}":`, error.message);
+      invalidEntries.push(entry);
+    }
+  }
+
+  return { validEntries, invalidEntries };
+}
 
 async function readIndexFile() {
   const filePath = path.join(dataFolder, 'index.json');
 
-  try{
+  try {
     const data = await fs.readFile(filePath, 'utf-8');
     const index = JSON.parse(data);
 
-    console.log('JSON lesid', index);
-    return index;
-  }
-  catch (error) {
-    console.error('failed to read $(filePath):', error.message);
-    return[];
+    const structurallyValidEntries = index.filter(entry => entry.title && entry.file);
+    const structurallyInvalidEntries = index.filter(entry => !(entry.title && entry.file));
+
+    const { validEntries, invalidEntries } = await validateFiles(structurallyValidEntries);
+
+    console.log('Valid JSON:', validEntries);
+    console.warn('Invalid JSON:', [...structurallyInvalidEntries, ...invalidEntries]);
+
+    // Generate index.html with valid entries
+    await createIndexHtml(validEntries);
+
+    return validEntries;
+  } catch (error) {
+    console.error(`Failed to read ${filePath}:`, error.message);
+    return [];
   }
 }
 
 readIndexFile();
 
-async function readQuestionFile(fileName) {
-  const filePath = path.join(dataFolder, fileName);
+/**Búa til index.html  file */
 
-  try {
-    const data = await fs.readFile(filePath, 'utf8');
-    const questions = JSON.parse(data);
+const distFolder = './dist/';
 
-    console.log(`Spurningar i ${fileName} lesnar:`, questions);
-    return questions;
-  } catch (error) {
-    console.error(`Failed to read ${filePath}:`, error.message);
-    return null;
-  }
+async function createHTML(validEntries) {
+  const filePath = path.join(distFolder, 'index.html')
+
+  const link = validEntries.map(
+    (entry) => `<li><a href="${entry.file.replace('.json', '.html')}">${entry.title}</a></li>`).join('\n');
+
+ const html = `
+    <!DOCTYPE html>
+    <html lang="is">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Spurningaflokkar</title>
+    </head>
+    <body>
+      <h1>Velkomin í spurningaleikinn</h1>
+      <p>Veldu spurningaflokk:</p>
+      <ul>
+        ${links}
+      </ul>
+    </body>
+    </html>
+  `; 
+
+await fs.mkdir(distFolder, { recursive: true });
+
+  // Write the HTML to the `index.html` file
+await fs.writeFile(filePath, html, 'utf8');
+  console.log('index.html búið til í', filePath);
 }
-
-async function readAllData() {
-  const index = await readIndexFile();
-
-  for (const item of index) {
-    if (item.file) {
-      const questions = await readQuestionFile(item.file);
-      if (questions) {
-        console.log(`Processed data for: ${item.title}`);
-      }
-    } else {
-      console.warn(`Missing 'file' property in index entry:`, item);
-    }
-  }
-}
-
-readAllData();
