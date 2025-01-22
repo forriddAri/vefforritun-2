@@ -63,6 +63,7 @@ async function createIndexHtml(validEntries) {
   const html = `
     <!DOCTYPE html>
     <html lang="is">
+    <link rel="stylesheet" href="styles.css">
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,31 +84,50 @@ async function createIndexHtml(validEntries) {
   console.log('index.html búið til í', filePath);
 }
 
-async function createCategoryHtml(entry) {
-  const filePath = path.join(distFolder, entry.file.replace('.json', '.html'));
-  const dataFilePath = path.join(dataFolder, entry.file);
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
+async function createCategoryHtml(entry) {
   try {
+    if (!entry.file) {
+      console.error('Missing "file" property in entry:', entry);
+      return; // Skip this entry
+    }
+
+    console.log('Processing entry:', entry);
+
+    const filePath = path.join(distFolder, entry.file.replace('.json', '.html'));
+    const dataFilePath = path.join(dataFolder, entry.file);
+
     const data = await fs.readFile(dataFilePath, 'utf-8');
     const parsedData = JSON.parse(data);
 
     const questionsHtml = parsedData.questions
-      .filter((q) => Array.isArray(q.answers)) 
-      .map(
-        (q, i) => `
-        <div>
-          <h2>Question ${i + 1}: ${q.question}</h2>
-          <ul>
-            ${q.answers
-              .map(
-                (a) =>
-                  `<li>${a.correct ? '<b>' : ''}${a.answer}${a.correct ? '</b>' : ''}</li>`
-              )
-              .join('')}
-          </ul>
-        </div>
-      `
-      )
+      .filter((q) => Array.isArray(q.answers))
+      .map((q, i) => {
+        const validAnswers = q.answers.filter((a) => a.answer && typeof a.correct === 'boolean'); // Filter valid answers
+        return `
+          <div>
+            <h2>Question ${i + 1}: ${q.question}</h2>
+            <div class="answers">
+              ${validAnswers
+                .map(
+                  (a) =>
+                    `<div class="answer-box ${a.correct ? 'correct' : 'wrong'}">
+                      ${escapeHtml(a.answer)}
+                    </div>`
+                )
+                .join('')}
+            </div>
+          </div>
+        `;
+      })
       .join('');
 
     const html = `
@@ -117,11 +137,21 @@ async function createCategoryHtml(entry) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${parsedData.title}</title>
+        <link rel="stylesheet" href="styles.css">
       </head>
       <body>
         <h1>${parsedData.title}</h1>
         ${questionsHtml}
         <p><a href="index.html">Til baka á forsíðu</a></p>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.answer-box').forEach(box => {
+              box.addEventListener('click', () => {
+                box.classList.add('clicked');
+              });
+            });
+          });
+        </script>
       </body>
       </html>
     `;
@@ -129,9 +159,11 @@ async function createCategoryHtml(entry) {
     await fs.writeFile(filePath, html, 'utf8');
     console.log(`${entry.file.replace('.json', '.html')} created at ${filePath}`);
   } catch (error) {
-    console.error(`Failed to create category HTML for ${entry.file}:`, error.message);
+    console.error(`Failed to create category HTML for ${entry.file || 'unknown'}:`, error.message);
   }
 }
+
+
 
 
 

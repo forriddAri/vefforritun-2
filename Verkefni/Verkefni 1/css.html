@@ -5,12 +5,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CSS</title>
+        <link rel="stylesheet" href="styles.css">
       </head>
       <body>
         <h1>CSS</h1>
         
-        <div>
-          <h2>Question 1: Fyrir eftirfarandi HTML / for the following HTML:
+          <div>
+            <h2>Question 1: Fyrir eftirfarandi HTML / for the following HTML:
 
 
 <div class="text">
@@ -38,33 +39,74 @@ Er skilgreint CSS / there is defined CSS:
  
 
 Hvert af eftirfarandi er satt fyrir textann „Halló heimur“ eftir að búið er að reikna gildi?</h2>
-          <ul>
-            <li><b>font-size: 20px;, color: green;</b></li><li>font-size: 15px;, color: red;</li><li>font-size: 20px;, color: red;</li><li>font-size: 15px;, color: green;</li>
-          </ul>
-        </div>
-      
-        <div>
-          <h2>Question 2: Ef við erum að nota nýtt gildi fyrir lit í CSS sem er ekki víst að sé stutt í öllum vöfrum, þá ættum við að</h2>
-          <ul>
-            <li><b>Skilgreina fallback gildi á undan nýja gildinu sem væri notað í stað þess ef það er ekki stutt</b></li><li>Skilgreina fallback gildi á eftir nýja gildinu sem væri notað í stað þess ef það er ekki stutt.</li><li>Setja upp JavaScript virkni sem bendir notanda á að sækja nýjann vafra sem styður gildið.</li><li>Þetta er ekki stutt í CSS.</li>
-          </ul>
-        </div>
-      
-        <div>
-          <h2>Question 3: Í verkefnum höfum við unnið með „containers“ og „items“ sem hugtök, hvað á það við?</h2>
-          <ul>
-            <li><b>„Flex container“ og „flex items; „grid container“ og „grid items“: greinarmunur á foreldri og börnum þegar flexbox og CSS grid er notað.</b></li><li>„Flex container“ og „flex items: greinarmunur á foreldri og börnum eingngu þegar flexbox er notað.</li><li>„Grid container“ og „grid items“: greinarmunur á foreldri og börnum eingöngu þegar grid er notað.</li><li>Hugtök sem eru notuð með `querySelectorAll`: „container“ er það element sem leitað er undir, „items“ það sem er skilað.</li>
-          </ul>
-        </div>
-      
-        <div>
-          <h2>Question 4: Þegar við notum flexbox hvað af eftirfarandi er satt? Gerið ráð fyrir að skjal sé lesið frá vinstri til hægri.</h2>
-          <ul>
-            <li><b>Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á aðalás frá vinstri til hægri.</b></li><li>Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á aðalás frá vinstri til hægri.</li><li>Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á krossás frá vinstri til hægri.</li><li>Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á krossás frá vinstri til hægri.</li>
-          </ul>
-        </div>
-      
+            <div class="answers">
+              <div class="answer-box correct">
+                      font-size: 20px;, color: green;
+                    </div><div class="answer-box wrong">
+                      font-size: 15px;, color: red;
+                    </div><div class="answer-box wrong">
+                      font-size: 20px;, color: red;
+                    </div><div class="answer-box wrong">
+                      font-size: 15px;, color: green;
+                    </div>
+            </div>
+          </div>
+        
+          <div>
+            <h2>Question 2: Ef við erum að nota nýtt gildi fyrir lit í CSS sem er ekki víst að sé stutt í öllum vöfrum, þá ættum við að</h2>
+            <div class="answers">
+              <div class="answer-box correct">
+                      Skilgreina fallback gildi á undan nýja gildinu sem væri notað í stað þess ef það er ekki stutt
+                    </div><div class="answer-box wrong">
+                      Skilgreina fallback gildi á eftir nýja gildinu sem væri notað í stað þess ef það er ekki stutt.
+                    </div><div class="answer-box wrong">
+                      Setja upp JavaScript virkni sem bendir notanda á að sækja nýjann vafra sem styður gildið.
+                    </div><div class="answer-box wrong">
+                      Þetta er ekki stutt í CSS.
+                    </div>
+            </div>
+          </div>
+        
+          <div>
+            <h2>Question 3: Í verkefnum höfum við unnið með „containers“ og „items“ sem hugtök, hvað á það við?</h2>
+            <div class="answers">
+              <div class="answer-box correct">
+                      „Flex container“ og „flex items; „grid container“ og „grid items“: greinarmunur á foreldri og börnum þegar flexbox og CSS grid er notað.
+                    </div><div class="answer-box wrong">
+                      „Flex container“ og „flex items: greinarmunur á foreldri og börnum eingngu þegar flexbox er notað.
+                    </div><div class="answer-box wrong">
+                      „Grid container“ og „grid items“: greinarmunur á foreldri og börnum eingöngu þegar grid er notað.
+                    </div><div class="answer-box wrong">
+                      Hugtök sem eru notuð með `querySelectorAll`: „container“ er það element sem leitað er undir, „items“ það sem er skilað.
+                    </div>
+            </div>
+          </div>
+        
+          <div>
+            <h2>Question 4: Þegar við notum flexbox hvað af eftirfarandi er satt? Gerið ráð fyrir að skjal sé lesið frá vinstri til hægri.</h2>
+            <div class="answers">
+              <div class="answer-box correct">
+                      Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á aðalás frá vinstri til hægri.
+                    </div><div class="answer-box wrong">
+                      Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á aðalás frá vinstri til hægri.
+                    </div><div class="answer-box wrong">
+                      Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á krossás frá vinstri til hægri.
+                    </div><div class="answer-box wrong">
+                      Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á krossás frá vinstri til hægri.
+                    </div>
+            </div>
+          </div>
+        
         <p><a href="index.html">Til baka á forsíðu</a></p>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.answer-box').forEach(box => {
+              box.addEventListener('click', () => {
+                box.classList.add('clicked');
+              });
+            });
+          });
+        </script>
       </body>
       </html>
     

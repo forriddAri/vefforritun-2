@@ -1,0 +1,110 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f8f9fa; /* Light gray background */
+    color: #333; /* Darker text for better contrast */
+    line-height: 1.6;
+  }
+  
+  /* Header */
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+  }
+
+  ul {
+    list-style-type: none; /* Remove bullet points */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+  }
+
+  p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555; /* Subtle gray for paragraph */
+  }
+  
+  /* Category Links */
+  .category-links {
+    display: flex;
+    flex-direction: column; /* Stack links vertically */
+    align-items: center; /* Center the links */
+    gap: 15px; /* Space between links */
+    margin-top: 20px;
+  }
+
+  /* Answer Boxes */
+  .answers {
+    display: flex;
+    flex-direction: column; /* Stack boxes vertically */
+    gap: 10px; /* Space between boxes */
+    margin-top: 10px;
+    align-items: center; /* Center the boxes */
+  }
+  
+  .answer-box {
+    display: block;
+    width: 90%; /* Adjust width for responsiveness */
+    max-width: 400px; /* Limit the maximum width */
+    padding: 15px; /* Inner spacing */
+    margin: 0 auto; /* Center each box */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    color: black; /* Initial text color */
+    text-align: center; /* Center the text */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  }
+  
+  .answer-box:hover {
+    background-color: #e6e6e6; /* Slightly darker on hover */
+  }
+  
+  .answer-box.clicked.correct {
+    background-color: #d4f8d4; /* Light green for correct answers */
+    color: #28a745; /* Green text for correct answers */
+    border-color: #28a745; /* Green border */
+  }
+  
+  .answer-box.clicked.wrong {
+    background-color: #f8d4d4; /* Light red for wrong answers */
+    color: #dc3545; /* Red text for wrong answers */
+    border-color: #dc3545; /* Red border */
+  }
+  
+/* General Link Styles */
+a {
+  display: flex;
+  width: 15%;
+  padding: 12px 20px;
+  margin: 10px auto; /* Center links with some spacing */
+  background-color: #007bff; /* Blue background */
+  align-self: center;
+  color: white; /* White text */
+  text-align: center; /* Center text inside the link */
+  text-decoration: none; /* Remove underline */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 1em; /* Consistent font size */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+}
+
+/* Hover Effect for Links */
+a:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Center Links in Flex Containers */
+.category-links {
+  display: flex;
+  flex-direction: column; /* Stack links vertically */
+  align-items: center; /* Center align links */
+  gap: 15px; /* Space between links */
+  margin-top: 20px; /* Add space from other elements */
+}
+
+  

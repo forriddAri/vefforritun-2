@@ -5,39 +5,81 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>HTML</title>
+        <link rel="stylesheet" href="styles.css">
       </head>
       <body>
         <h1>HTML</h1>
         
-        <div>
-          <h2>Question 1: Ef við værum að smíða vefsíðu og myndum vilja geta farið frá index.html yfir á about.html, hvað væri best að nota?</h2>
-          <ul>
-            <li><b><a href="about.html">About</a></b></li><li><form method="get" action="about.html"><button>About</button></form></li><li><button to="about.html">About</button></li><li>Allar jafn góðar / All equally good</li>
-          </ul>
-        </div>
-      
-        <div>
-          <h2>Question 2: Í <head> á vefjum setjum við <meta charset="utf-8"> (eða það stafasett sem nota á), afhverju er það gert?</h2>
-          <ul>
-            <li><b>Þannig að stafir birtist rétt.</b></li><li>Skilgreining sem visual studio verður að hafa þannig að prettier virki rétt.</li><li>Skilgreining sem aXe krefur okkur um til að vefur verði aðgengilegur.</li><li>Ekkert af þessu.</li>
-          </ul>
-        </div>
-      
-        <div>
-          <h2>Question 3: Það sem við getum gert til að forrita aðgengilega vefi er</h2>
-          <ul>
-            <li><b> Allt af þessu.</b></li><li>Nota eingöngu lyklaborð við að skoða og nota vefinn.</li><li>Merkja form á aðgengilegan hátt.</li><li>Hafa tóman alt texta á myndum ef þær eru eingöngu til skrauts.</li>
-          </ul>
-        </div>
-      
-        <div>
-          <h2>Question 4: Hvað er merkingarfræði í sambandi við námsefnið?</h2>
-          <ul>
-            <li><b>Hvert HTML element hefur einhverja skilgreinda merkingu—merkingarfræðilegt gildi—sem við þurfum að hafa í huga þegar við smíðum vefi.</b></li><li>Hvert HTML tag hefur einhverja skilgreinda merkingu—merkingarfræðilegt gildi—sem við þurfum að hafa í huga þegar við smíðum vefi.</li><li>Hvert CSS eigindi hefur einhverja skilgreinda merkingu—merkingarfræðilegt gildi—sem við þurfum að hafa í huga þegar við smíðum vefi.</li><li>Hver CSS selector hefur einhverja skilgreinda merkingu—merkingarfræðilegt gildi—sem við þurfum að hafa í huga þegar við smíðum vefi.</li>
-          </ul>
-        </div>
-      
+          <div>
+            <h2>Question 1: Ef við værum að smíða vefsíðu og myndum vilja geta farið frá index.html yfir á about.html, hvað væri best að nota?</h2>
+            <div class="answers">
+              <div class="answer-box correct">
+                      &lt;a href=&quot;about.html&quot;&gt;About&lt;/a&gt;
+                    </div><div class="answer-box wrong">
+                      &lt;form method=&quot;get&quot; action=&quot;about.html&quot;&gt;&lt;button&gt;About&lt;/button&gt;&lt;/form&gt;
+                    </div><div class="answer-box wrong">
+                      &lt;button to=&quot;about.html&quot;&gt;About&lt;/button&gt;
+                    </div><div class="answer-box wrong">
+                      Allar jafn góðar / All equally good
+                    </div>
+            </div>
+          </div>
+        
+          <div>
+            <h2>Question 2: Í <head> á vefjum setjum við <meta charset="utf-8"> (eða það stafasett sem nota á), afhverju er það gert?</h2>
+            <div class="answers">
+              <div class="answer-box correct">
+                      Þannig að stafir birtist rétt.
+                    </div><div class="answer-box wrong">
+                      Skilgreining sem visual studio verður að hafa þannig að prettier virki rétt.
+                    </div><div class="answer-box wrong">
+                      Skilgreining sem aXe krefur okkur um til að vefur verði aðgengilegur.
+                    </div><div class="answer-box wrong">
+                      Ekkert af þessu.
+                    </div>
+            </div>
+          </div>
+        
+          <div>
+            <h2>Question 3: Það sem við getum gert til að forrita aðgengilega vefi er</h2>
+            <div class="answers">
+              <div class="answer-box correct">
+                       Allt af þessu.
+                    </div><div class="answer-box wrong">
+                      Nota eingöngu lyklaborð við að skoða og nota vefinn.
+                    </div><div class="answer-box wrong">
+                      Merkja form á aðgengilegan hátt.
+                    </div><div class="answer-box wrong">
+                      Hafa tóman alt texta á myndum ef þær eru eingöngu til skrauts.
+                    </div>
+            </div>
+          </div>
+        
+          <div>
+            <h2>Question 4: Hvað er merkingarfræði í sambandi við námsefnið?</h2>
+            <div class="answers">
+              <div class="answer-box correct">
+                      Hvert HTML element hefur einhverja skilgreinda merkingu—merkingarfræðilegt gildi—sem við þurfum að hafa í huga þegar við smíðum vefi.
+                    </div><div class="answer-box wrong">
+                      Hvert HTML tag hefur einhverja skilgreinda merkingu—merkingarfræðilegt gildi—sem við þurfum að hafa í huga þegar við smíðum vefi.
+                    </div><div class="answer-box wrong">
+                      Hvert CSS eigindi hefur einhverja skilgreinda merkingu—merkingarfræðilegt gildi—sem við þurfum að hafa í huga þegar við smíðum vefi.
+                    </div><div class="answer-box wrong">
+                      Hver CSS selector hefur einhverja skilgreinda merkingu—merkingarfræðilegt gildi—sem við þurfum að hafa í huga þegar við smíðum vefi.
+                    </div>
+            </div>
+          </div>
+        
         <p><a href="index.html">Til baka á forsíðu</a></p>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.answer-box').forEach(box => {
+              box.addEventListener('click', () => {
+                box.classList.add('clicked');
+              });
+            });
+          });
+        </script>
       </body>
       </html>
     
